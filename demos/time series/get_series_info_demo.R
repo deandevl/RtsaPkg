@@ -1,5 +1,6 @@
 library(tseries)
 library(TSstudio)
+library(wooldridge)
 library(zoo)
 library(xts)
 library(RtsaPkg)
@@ -13,6 +14,7 @@ data("ice.river")
 RtsaPkg::get_series_info(series = ice.river)
 
 # Information on a zoo time object EURO_Brent
+is_zoo <- zoo::is.zoo(TSstudio::EURO_Brent)
 RtsaPkg::get_series_info(series = TSstudio::EURO_Brent)
 
 # Information on a xts object Michigan_CS

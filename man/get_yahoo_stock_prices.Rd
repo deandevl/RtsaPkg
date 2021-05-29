@@ -19,10 +19,10 @@ get_yahoo_stock_prices(
 
 \item{to}{A string or Date object that sets the ending date in CCYY-MM-DD format.}
 
-\item{periodicity}{A string that defines the sampling of the data. Accepted values are \dQuote{daily}, \dQuote{weekly},
-\dQuote{monthly}.}
+\item{periodicity}{A string that defines the sampling of the data. Accepted values are "daily", "weekly",
+"monthly".}
 
-\item{return_class}{A string that sets the class of the return object. Acceptable values are \code{data.frame} or \code{xts}.}
+\item{return_class}{A string that sets the class of the return object. Acceptable values are "data.frame" or "xts".}
 }
 \value{
 A data frame with a \code{date} column or xts object along with values for Open, High, Low, Close, Volume, Adjusted.

@@ -64,7 +64,7 @@ get_series_info <- function(series = NULL, n_obser = 5){
   }else if(zoo::is.zoo(series)){
     info_lst$name <- name_str
     info_lst$class <- "zoo"
-    info_lst$frequency <- xts::periodicity(series)$scale
+    info_lst$frequency <- xts::periodicity(as.ts(series))$scale
     info_lst$start <- paste(stats::start(series), collapse = " ")
     info_lst$end <- paste(stats::end(series), collapse = " ")
     info_lst$length <- length(series)

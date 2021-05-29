@@ -8,9 +8,9 @@
 #' @param symbols A character vector of stock market symbols to be accessed.
 #' @param from A string or Date object that sets the starting date in CCYY-MM-DD format.
 #' @param to A string or Date object that sets the ending date in CCYY-MM-DD format.
-#' @param periodicity A string that defines the sampling of the data. Accepted values are \dQuote{daily}, \dQuote{weekly},
-#'  \dQuote{monthly}.
-#' @param return_class A string that sets the class of the return object. Acceptable values are \code{data.frame} or \code{xts}.
+#' @param periodicity A string that defines the sampling of the data. Accepted values are "daily", "weekly",
+#'  "monthly".
+#' @param return_class A string that sets the class of the return object. Acceptable values are "data.frame" or "xts".
 #'
 #' @return A data frame with a \code{date} column or xts object along with values for Open, High, Low, Close, Volume, Adjusted.
 #'
