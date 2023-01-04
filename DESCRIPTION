@@ -1,0 +1,12 @@
+Package: RtsaPkg
+Title: Helpful functions in times series analysis
+Version: 0.0.0.9000
+Author: Rick Dean, <deanr3@bardstown.com>
+Maintainer: Rick Dean, <deanr3@bardstown.com>
+Description: Contains useful functions for the analysis of time series data.
+Imports: data.table,ggplot2,purrr,rlang,xts,zoo,anytime,tsbox,riingo,gtable,RplotterPkg
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
