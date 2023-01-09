@@ -6,8 +6,8 @@
 #'  plot for the series' lagged differences. The actual difference values are also returned
 #'  in a data.frame.
 #'
-#' The function uses the \href{https://github.com/deandevl/RplotterPkg}{RplotterPkb} package to draw
-#'  the multi-paneled plot.
+#' The function uses the \href{https://github.com/deandevl/RplotterPkg}{RplotterPkg::multi_panel_grid}
+#' package to draw the multi-paneled plot.
 #'
 #' If \code{display_plot} is TRUE then the plots will be displayed. If \code{display_plot} is FALSE then
 #' the function returns a named list that includes a plot object which can be displayed from the console by entering:
@@ -22,7 +22,6 @@
 #' @param value_col Names the numeric column from \code{df} for time series values.
 #' @param dif_lag An integer that sets the lag of difference to use.
 #' @param title A string that defines an overall title to the pair of plots.
-#' @param subtitle A string that defines an overall subtitle.
 #' @param x_title A string that sets the x axis title.
 #' @param y_title A string that sets the y axis title.
 #' @param x_limits A Date/POSIXct 2 element vector that sets the minimum and maximum for the x axis.
@@ -40,8 +39,8 @@
 #' @param show_obs A logical which if FALSE hides the plot of observations.
 #' @param show_major_grids A logical that controls the appearance of major grids.
 #' @param show_minor_grids A logical that controls the appearance of minor grids.
-#' @param col_width An integer that sets the width of each plot column in inches.
-#' @param row_height An integer that sets the height of each plot column in inches.
+#' @param col_width An integer that sets the width of each plot column in centimeters.
+#' @param row_height An integer that sets the height of each plot column in centimeters.
 #' @param display_plot A logical that if TRUE displays the plot.
 #' @param png_file_path A character string with the directory and file name to produce
 #'  a png image of the plot.
@@ -76,7 +75,6 @@ graph_dif <- function(
   value_col = NULL,
   dif_lag = 1,
   title = NULL,
-  subtitle = NULL,
   x_title = NULL,
   y_title = NULL,
   x_limits = NULL,
@@ -89,8 +87,8 @@ graph_dif <- function(
   show_obs = TRUE,
   show_major_grids = TRUE,
   show_minor_grids = TRUE,
-  col_width = 10,
-  row_height = 4,
+  col_width = 30,
+  row_height = 8,
   display_plot = TRUE,
   png_file_path = NULL
 ){
@@ -122,7 +120,7 @@ graph_dif <- function(
       aes_x = time_col,
       aes_y = value_col,
       rot_y_tic_label = TRUE,
-      title = "Observations",
+      subtitle = "Observations",
       x_title = x_title,
       y_title = y_title,
       x_limits = x_limits,
@@ -145,7 +143,7 @@ graph_dif <- function(
     aes_x = "datetime",
     aes_y = "diffvalue",
     rot_y_tic_label = TRUE,
-    title = "Lagged Differences",
+    subtitle = "Lagged Differences",
     x_title = x_title,
     y_title = y_title,
     x_limits = x_limits,
@@ -191,7 +189,6 @@ graph_dif <- function(
     col_widths = rep(col_width, n_columns),
     row_heights = rep(row_height, n_rows),
     title = title,
-    subtitle = subtitle,
     display_plot = FALSE
   )
 

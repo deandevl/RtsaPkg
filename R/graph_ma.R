@@ -4,8 +4,8 @@
 #' Function returns either an overlapped or multi-paneled plot of the observed time series,
 #'  along with the plot for the moving average. The actual moving average values are also returned in a data.frame.
 #'
-#' The function uses the \href{https://github.com/deandevl/RplotterPkg}{RplotterPkb} package to draw
-#'  the multi-paneled plot.
+#' The function uses the \href{https://github.com/deandevl/RplotterPkg}{RplotterPkg::multi_panel_grid}
+#' package to draw the multi-paneled plot.
 #'
 #' If \code{display_plot} is TRUE then the plots will be displayed. If \code{display_plot} is FALSE then
 #' the function returns a named list that includes a plot object which can be displayed from the console by entering:
@@ -24,7 +24,6 @@
 #' @param overlap A logical which if \code{TRUE} overlaps both the observed and the moving average series'. If \code{FALSE} the
 #'  plots are in separate panels.
 #' @param title A string that sets the plots overall title.
-#' @param subtitle A string that sets the plots overall subtitle.
 #' @param x_title A string that defines the x axis title.
 #' @param y_title A string that defines the y axis title.
 #' @param x_limits A Date/POSIXct 2 element vector that sets the minimum and maximum for the x axis.
@@ -42,8 +41,8 @@
 #' @param show_major_grids A logical that controls the appearance of major grids.
 #' @param show_minor_grids A logical that controls the appearance of minor grids.
 #' @param show_observe A logical that controls the appearance of the observed time series.
-#' @param col_width An integer that sets the width of each plot column in inches.
-#' @param row_height An integer that sets the height of each plot column in inches.
+#' @param col_width An integer that sets the width of each plot column in centimeters.
+#' @param row_height An integer that sets the height of each plot column in centimeters.
 #' @param display_plot A logical that if TRUE displays the plot.
 #' @param png_file_path A character string with the directory and file name to produce
 #'  a png image of the plot.
@@ -80,7 +79,6 @@ graph_ma <- function(
   ma_type = "sma",
   overlap = TRUE,
   title = NULL,
-  subtitle = NULL,
   x_title = NULL,
   y_title = NULL,
   x_limits = NULL,
@@ -93,8 +91,8 @@ graph_ma <- function(
   show_minor_grids = TRUE,
   show_pts = TRUE,
   show_observe = TRUE,
-  col_width = 10,
-  row_height = 3.5,
+  col_width = 30,
+  row_height = 8,
   display_plot = TRUE,
   png_file_path = NULL
 ){
@@ -182,8 +180,7 @@ graph_ma <- function(
       df = ma_dt,
       aes_x = "datetime",
       aes_y = "value",
-      title = title,
-      subtitle = subtitle,
+      subtitle = title,
       x_title = x_title,
       y_title = y_title,
       x_limits = x_limits,
@@ -229,7 +226,7 @@ graph_ma <- function(
       aes_x = time_col,
       aes_y = value_col,
       rot_y_tic_label = TRUE,
-      title = "Observations",
+      subtitle = "Observations",
       x_title = x_title,
       y_title = y_title,
       x_limits = x_limits,
@@ -250,7 +247,7 @@ graph_ma <- function(
       aes_x = "datetime",
       aes_y = "value",
       rot_y_tic_label = TRUE,
-      title = ma_name,
+      subtitle = ma_name,
       x_title = x_title,
       y_title = y_title,
       x_limits = x_limits,
@@ -297,7 +294,6 @@ graph_ma <- function(
       col_widths = rep(col_width, n_columns),
       row_heights = rep(row_height, n_rows),
       title = title,
-      subtitle = subtitle,
       display_plot = FALSE
     )
 
@@ -338,8 +334,7 @@ graph_ma <- function(
       aes_x = "datetime",
       aes_y = "value",
       aes_color = "source",
-      title = title,
-      subtitle = subtitle,
+      subtitle = title,
       x_title = x_title,
       y_title = y_title,
       x_limits = x_limits,

@@ -47,7 +47,6 @@ RtsaPkg::graph_lead_lag(
   time_col = "time",
   value_col = "value",
   title = "Value(t) vs Value(t-k) for Simulated AR(1)",
-  subtitle = "Coefficient = 0.85",
   show_fit = TRUE
 )
 
@@ -63,7 +62,6 @@ RtsaPkg::graph_lead_lag(
   value_col = "value",
   direction = "lead",
   title = "Value(t) vs Value(t+k) for Simulated AR(2)",
-  subtitle = "Coefficients = (0.85,-0.6858)",
   show_fit = TRUE
 )
 

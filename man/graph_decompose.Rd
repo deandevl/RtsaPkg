@@ -8,15 +8,13 @@ graph_decompose(
   series_ts = NULL,
   type_comp = "additive",
   title = NULL,
-  subtitle = NULL,
   x_title = "DateTime",
-  y_title = "Value",
   x_limits = NULL,
   x_major_breaks = waiver(),
   x_major_date_breaks = waiver(),
   x_date_labels = waiver(),
-  col_width = 10,
-  row_height = 2,
+  col_width = 20,
+  row_height = 5,
   display_plot = TRUE
 )
 }
@@ -28,11 +26,7 @@ graph_decompose(
 
 \item{title}{A string that defines an overall title to the multi-paneled plot.}
 
-\item{subtitle}{A string that defines an overall subtitle.}
-
 \item{x_title}{A string that defines the x axis title.}
-
-\item{y_title}{A string that defines the y axis title.}
 
 \item{x_limits}{A Date/POSIXct 2 element vector that sets the minimum and maximum for the x axis.
 Use NA to refer to the existing minimum and maximum.}
@@ -46,9 +40,9 @@ Examples: \code{"1 year"}, \code{"4 sec"}, \code{"3 month"}, \code{"2 week"}.}
 This can be a strftime format for each x axis tic date label.
 Examples: \code{"\%Y-\%m"}, \code{"\%Y/\%b/\%d"}, \code{"\%H-\%M-\%S"}.}
 
-\item{col_width}{An integer that sets the width of each plot column in inches.}
+\item{col_width}{An integer that sets the width of each plot column in centimeters.}
 
-\item{row_height}{An integer that sets the height of each plot column in inches.}
+\item{row_height}{An integer that sets the height of each plot column in centimeters.}
 
 \item{display_plot}{A logical that if TRUE displays the plot.}
 }
@@ -64,10 +58,12 @@ Use \code{grid::grid.draw(plots)} to display the plots.
 }
 \description{
 Function uses \code{decompose} from the stats package to plot the series' observed values, seasonal,
-trend, and irregular components using moving averages. User can set the seasonal component as additive or multiplicative.
+trend, and irregular components using moving averages. User can set the seasonal component as additive or
+multiplicative.
 }
 \details{
-Function uses the \href{https://github.com/deandevl/RplotterPkg}{RplotterPkg} package to draw the multi-paneled plot.
+Function uses the \href{https://github.com/deandevl/RplotterPkg}{RplotterPkg::multi_panel_grid} package to
+draw the multi-paneled plot.
 
 if \code{display_plot} is TRUE then the plots will be displayed. If \code{display_plot} is FALSE then
 the function returns a named list that includes a plot object which can be displayed from the console by entering:

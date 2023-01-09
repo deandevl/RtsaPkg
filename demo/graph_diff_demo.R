@@ -14,7 +14,6 @@ RtsaPkg::graph_dif(
   time_col = "time",
   value_col = "value",
   title = "AirPassengers Series Differences at lag = 1",
-  subtitle = "Monthly Passengers 1949 - 1960",
-  show_obs = FALSE,
+  show_obs = TRUE,
   show_pts = FALSE
 )

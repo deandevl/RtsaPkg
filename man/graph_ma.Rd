@@ -12,7 +12,6 @@ graph_ma(
   ma_type = "sma",
   overlap = TRUE,
   title = NULL,
-  subtitle = NULL,
   x_title = NULL,
   y_title = NULL,
   x_limits = NULL,
@@ -25,8 +24,8 @@ graph_ma(
   show_minor_grids = TRUE,
   show_pts = TRUE,
   show_observe = TRUE,
-  col_width = 10,
-  row_height = 3.5,
+  col_width = 30,
+  row_height = 8,
   display_plot = TRUE,
   png_file_path = NULL
 )
@@ -48,8 +47,6 @@ be numeric or Date/POSIXct.}
 plots are in separate panels.}
 
 \item{title}{A string that sets the plots overall title.}
-
-\item{subtitle}{A string that sets the plots overall subtitle.}
 
 \item{x_title}{A string that defines the x axis title.}
 
@@ -80,9 +77,9 @@ Use NA to refer to the existing minimum and maximum.}
 
 \item{show_observe}{A logical that controls the appearance of the observed time series.}
 
-\item{col_width}{An integer that sets the width of each plot column in inches.}
+\item{col_width}{An integer that sets the width of each plot column in centimeters.}
 
-\item{row_height}{An integer that sets the height of each plot column in inches.}
+\item{row_height}{An integer that sets the height of each plot column in centimeters.}
 
 \item{display_plot}{A logical that if TRUE displays the plot.}
 
@@ -103,8 +100,8 @@ Function returns either an overlapped or multi-paneled plot of the observed time
 along with the plot for the moving average. The actual moving average values are also returned in a data.frame.
 }
 \details{
-The function uses the \href{https://github.com/deandevl/RplotterPkg}{RplotterPkb} package to draw
-the multi-paneled plot.
+The function uses the \href{https://github.com/deandevl/RplotterPkg}{RplotterPkg::multi_panel_grid}
+package to draw the multi-paneled plot.
 
 If \code{display_plot} is TRUE then the plots will be displayed. If \code{display_plot} is FALSE then
 the function returns a named list that includes a plot object which can be displayed from the console by entering:

@@ -23,10 +23,9 @@ RtsaPkg::graph_acf(
   confid_level = 1.96,
   title = "Autocorrelations of Simulated ARIMA(2,0,0) Series",
   layout = "hor",
+  col_width = 9,
   show_obs = FALSE,
   show_minor_grids = FALSE,
-  bold_y = 0.0,
-  col_width = 6,
-  row_height = 5
+  bold_y = 0.0
 )
 

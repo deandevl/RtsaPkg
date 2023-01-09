@@ -12,7 +12,6 @@ graph_lead_lag(
   direction = "lag",
   n_columns = 2,
   title = NULL,
-  subtitle = NULL,
   x_limits = NULL,
   x_major_breaks = waiver(),
   y_limits = NULL,
@@ -29,8 +28,8 @@ graph_lead_lag(
   pts_stroke = 1,
   pts_alpha = 1,
   pts_size = 1,
-  col_width = 6,
-  row_height = 2.6,
+  col_width = 12,
+  row_height = 8,
   display_plot = TRUE,
   png_file_path = NULL
 )
@@ -51,8 +50,6 @@ values within \code{values}. The default is "lag".}
 \item{n_columns}{An integer that sets the number of columns in the multi-panel.}
 
 \item{title}{A string that defines an overall title to the pair of plots.}
-
-\item{subtitle}{A string that defines an overall subtitle.}
 
 \item{x_limits}{A numeric 2 element vector that sets the minimum and maximum for the x axis time series values.
 Use NA to refer to the existing minimum and maximum.}
@@ -89,9 +86,9 @@ Use NA to refer to the existing minimum and maximum.}
 
 \item{pts_size}{A numeric value that sets the size of the points.}
 
-\item{col_width}{An integer that sets the width of each plot column in inches.}
+\item{col_width}{An integer that sets the width of each plot column in centimeters.}
 
-\item{row_height}{An integer that sets the height of each plot column in inches.}
+\item{row_height}{An integer that sets the height of each plot column in centimeters.}
 
 \item{display_plot}{A logical that if TRUE displays the plot.}
 

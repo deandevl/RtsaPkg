@@ -10,7 +10,6 @@ graph_dif(
   value_col = NULL,
   dif_lag = 1,
   title = NULL,
-  subtitle = NULL,
   x_title = NULL,
   y_title = NULL,
   x_limits = NULL,
@@ -23,8 +22,8 @@ graph_dif(
   show_obs = TRUE,
   show_major_grids = TRUE,
   show_minor_grids = TRUE,
-  col_width = 10,
-  row_height = 4,
+  col_width = 30,
+  row_height = 8,
   display_plot = TRUE,
   png_file_path = NULL
 )
@@ -40,8 +39,6 @@ be numeric or Date/POSIXct.}
 \item{dif_lag}{An integer that sets the lag of difference to use.}
 
 \item{title}{A string that defines an overall title to the pair of plots.}
-
-\item{subtitle}{A string that defines an overall subtitle.}
 
 \item{x_title}{A string that sets the x axis title.}
 
@@ -72,9 +69,9 @@ Use NA to refer to the existing minimum and maximum.}
 
 \item{show_minor_grids}{A logical that controls the appearance of minor grids.}
 
-\item{col_width}{An integer that sets the width of each plot column in inches.}
+\item{col_width}{An integer that sets the width of each plot column in centimeters.}
 
-\item{row_height}{An integer that sets the height of each plot column in inches.}
+\item{row_height}{An integer that sets the height of each plot column in centimeters.}
 
 \item{display_plot}{A logical that if TRUE displays the plot.}
 
@@ -98,8 +95,8 @@ plot for the series' lagged differences. The actual difference values are also r
 in a data.frame.
 }
 \details{
-The function uses the \href{https://github.com/deandevl/RplotterPkg}{RplotterPkb} package to draw
-the multi-paneled plot.
+The function uses the \href{https://github.com/deandevl/RplotterPkg}{RplotterPkg::multi_panel_grid}
+package to draw the multi-paneled plot.
 
 If \code{display_plot} is TRUE then the plots will be displayed. If \code{display_plot} is FALSE then
 the function returns a named list that includes a plot object which can be displayed from the console by entering:

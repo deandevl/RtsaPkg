@@ -23,7 +23,6 @@
 #'  values within \code{values}. The default is "lag".
 #' @param n_columns An integer that sets the number of columns in the multi-panel.
 #' @param title A string that defines an overall title to the pair of plots.
-#' @param subtitle A string that defines an overall subtitle.
 #' @param x_limits A numeric 2 element vector that sets the minimum and maximum for the x axis time series values.
 #'  Use NA to refer to the existing minimum and maximum.
 #' @param x_major_breaks A numeric vector or function that defines the exact major tic locations along the x axis.
@@ -43,8 +42,8 @@
 #' @param pts_stroke A numeric that sets the drawing width for a point shape.
 #' @param pts_alpha A numeric value that sets the alpha level of \code{pts_color}.
 #' @param pts_size A numeric value that sets the size of the points.
-#' @param col_width An integer that sets the width of each plot column in inches.
-#' @param row_height An integer that sets the height of each plot column in inches.
+#' @param col_width An integer that sets the width of each plot column in centimeters.
+#' @param row_height An integer that sets the height of each plot column in centimeters.
 #' @param display_plot A logical that if TRUE displays the plot.
 #' @param png_file_path A character string with the directory and file name to produce
 #'  a png image of the plot.
@@ -84,7 +83,6 @@ graph_lead_lag <- function(
   direction = "lag",
   n_columns = 2,
   title=NULL,
-  subtitle=NULL,
   x_limits = NULL,
   x_major_breaks = waiver(),
   y_limits = NULL,
@@ -101,8 +99,8 @@ graph_lead_lag <- function(
   pts_stroke = 1,
   pts_alpha = 1.0,
   pts_size = 1,
-  col_width = 6,
-  row_height = 2.6,
+  col_width = 12,
+  row_height = 8,
   display_plot = TRUE,
   png_file_path = NULL
 ){
@@ -199,7 +197,6 @@ graph_lead_lag <- function(
     col_widths = rep(col_width, n_columns),
     row_heights = rep(row_height, n_rows),
     title = title,
-    subtitle = subtitle,
     display_plot = FALSE
   )
 

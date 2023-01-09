@@ -11,7 +11,6 @@ library(RtsaPkg)
 RtsaPkg::graph_decompose(
   series_ts = datasets::AirPassengers,
   type_comp = "multiplicative",
-  subtitle = "AirPassengers Data Set",
-  x_title = "Year",
-  y_title = "Passengers"
+  title = "AirPassengers Data Set",
+  x_title = "Year"
 )

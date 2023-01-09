@@ -5,8 +5,8 @@
 #'  autocorrelation, and partial autocorrelation. The actual autocorrelation values are also returned
 #'  in a data.frame.
 #'
-#' The function uses the \href{https://github.com/deandevl/RplotterPkg}{RplotterPkb} package to draw
-#'  the multi-paneled plot.
+#' The function uses the \href{https://github.com/deandevl/RplotterPkg}{RplotterPkg::multi_panel_grid}
+#' package to draw the multi-paneled plot.
 #'
 #' if \code{display_plot} is TRUE then the plots will be displayed. If \code{display_plot} is FALSE then
 #' the function returns a named list that includes a plot object which can be displayed from the console by entering:
@@ -22,7 +22,6 @@
 #' @param max_lag An integer that sets the maximum lag for the autocorrelation and partial autocorrelation plots.
 #' @param line_size A numeric that sets the line widths in the autocorrelation and partial autocorrelation plots.
 #' @param title A string that defines an overall title to the pair of plots.
-#' @param subtitle A string that defines an overall subtitle.
 #' @param x_title A string that sets the observed plot x axis title.
 #' @param y_title A string that sets the observed plot y axis title.
 #' @param confid_level A numeric that defines a confidence level which will be drawn over the autocorrelation plots. Typical value
@@ -56,8 +55,8 @@
 #' @param show_major_grids A logical that controls the appearance of major grids.
 #' @param show_minor_grids A logical that controls the appearance of minor grids.
 #' @param bold_y A numeric that plots a bold horizontal line at this y value.
-#' @param col_width A numeric that sets the width of each plot column in inches.
-#' @param row_height A numeric that sets the height of each plot column in inches.
+#' @param col_width A numeric that sets the width of each plot column in centimeters.
+#' @param row_height A numeric that sets the height of each plot column in centimeters.
 #' @param display_plot A logical that if TRUE displays the plot.
 #' @param png_file_path A character string with the directory and file name to produce
 #'  a png image of the plot.
@@ -91,7 +90,6 @@ graph_acf <- function(
   max_lag = 10,
   line_size =0.8,
   title = NULL,
-  subtitle = NULL,
   confid_level = NULL,
   x_title = "DateTime",
   y_title = "Value",
@@ -116,8 +114,8 @@ graph_acf <- function(
   show_major_grids = TRUE,
   show_minor_grids = TRUE,
   bold_y = NULL,
-  col_width = 8,
-  row_height = 2.6,
+  col_width = 12,
+  row_height = 6,
   display_plot = TRUE,
   png_file_path = NULL){
 
@@ -140,7 +138,7 @@ graph_acf <- function(
         aes_y = value_col,
         line_size = line_size,
         rot_y_tic_label = TRUE,
-        title = "Observations",
+        subtitle = "Observations",
         x_title = x_title,
         y_title = y_title,
         x_limits = obs_x_limits,
@@ -165,7 +163,7 @@ graph_acf <- function(
         df = acf_df,
         aes_x = "lag",
         aes_y = "acf",
-        title = "ACF",
+        subtitle = "ACF",
         x_title = "Lag",
         y_title = "ACF",
         rot_y_tic_label = TRUE,
@@ -195,7 +193,7 @@ graph_acf <- function(
         df = acf_df,
         aes_x = "lag",
         aes_y = "pacf",
-        title = "PACF",
+        subtitle = "PACF",
         x_title = "Lag",
         y_title = "PACF",
         rot_y_tic_label = TRUE,
@@ -249,7 +247,6 @@ graph_acf <- function(
       col_widths = rep(col_width, n_columns),
       row_heights = rep(row_height, n_rows),
       title = title,
-      subtitle = subtitle,
       display_plot = FALSE
     )
 
