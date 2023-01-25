@@ -6,7 +6,7 @@
 \usage{
 get_tiingo_stock_prices(
   symbols = "IBM",
-  periodicity = "daily",
+  periodicity = "weekly",
   from = "2019-01-01",
   to = "2019-12-31"
 )
@@ -15,7 +15,7 @@ get_tiingo_stock_prices(
 \item{symbols}{A character vector of stock market symbols to be accessed.}
 
 \item{periodicity}{A string that defines the frequency of sampled prices. Acceptable values are "daily",
-"monthly", "quarterly", "yearly".}
+"weekly", "monthly", "annually".}
 
 \item{from}{A string or Date object that sets the starting date in CCYY-MM-DD format.}
 
