@@ -1,5 +1,4 @@
 library(ggplot2)
-library(rlang)
 library(grid)
 library(gtable)
 library(RplotterPkg)

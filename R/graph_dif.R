@@ -87,8 +87,8 @@ graph_dif <- function(
   show_obs = TRUE,
   show_major_grids = TRUE,
   show_minor_grids = TRUE,
-  col_width = 30,
-  row_height = 8,
+  col_width = 18,
+  row_height = 5,
   display_plot = TRUE,
   png_file_path = NULL
 ){
@@ -111,22 +111,21 @@ graph_dif <- function(
     datetime = dates[1:(length(dates) - dif_lag)],
     diffvalue = differences
   )
-  plots <- list()
 
+  plots <- list()
+  row_heights = c()
   if(show_obs){
-  #create a line plot of the observed series
+    row_heights <-  row_height
+
+    #create a line plot of the observed series
     obsv_plot <- RplotterPkg::create_scatter_plot(
       df = df,
       aes_x = time_col,
       aes_y = value_col,
       rot_y_tic_label = TRUE,
       subtitle = "Observations",
-      x_title = x_title,
       y_title = y_title,
-      x_limits = x_limits,
-      x_major_breaks = x_major_breaks,
-      x_major_date_breaks = x_major_date_breaks,
-      x_date_labels = x_date_labels,
+      hide_x_tics = TRUE,
       y_limits = y_limits,
       y_major_breaks = y_major_breaks,
       show_pts = show_pts,
@@ -183,11 +182,13 @@ graph_dif <- function(
     rows = rows,
     cols = cols
   )
+  row_heights <- c(row_heights, row_height)
+  row_heights[length(row_heights)] <- row_heights[length(row_heights)] + 0.5
 
   multi_plot <- RplotterPkg::multi_panel_grid(
     layout = multi_layout,
     col_widths = rep(col_width, n_columns),
-    row_heights = rep(row_height, n_rows),
+    row_heights = row_heights,
     title = title,
     display_plot = FALSE
   )

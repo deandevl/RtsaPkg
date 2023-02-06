@@ -1,5 +1,4 @@
 library(ggplot2)
-library(rlang)
 library(data.table)
 library(zoo)
 library(grid)

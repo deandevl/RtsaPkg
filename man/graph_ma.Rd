@@ -12,6 +12,8 @@ graph_ma(
   ma_type = "sma",
   overlap = TRUE,
   title = NULL,
+  ma_caption = NULL,
+  ob_caption = NULL,
   x_title = NULL,
   y_title = NULL,
   x_limits = NULL,
@@ -24,8 +26,8 @@ graph_ma(
   show_minor_grids = TRUE,
   show_pts = TRUE,
   show_observe = TRUE,
-  col_width = 30,
-  row_height = 8,
+  col_width = 18,
+  row_height = 5,
   display_plot = TRUE,
   png_file_path = NULL
 )
@@ -46,7 +48,11 @@ be numeric or Date/POSIXct.}
 \item{overlap}{A logical which if \code{TRUE} overlaps both the observed and the moving average series'. If \code{FALSE} the
 plots are in separate panels.}
 
-\item{title}{A string that sets the plots overall title.}
+\item{title}{A string that sets the overall title to the plots.}
+
+\item{ma_caption}{A string that sets the caption for the ma plot.}
+
+\item{ob_caption}{A string that sets the caption for the observed plot.}
 
 \item{x_title}{A string that defines the x axis title.}
 
@@ -64,8 +70,8 @@ Examples: \code{"1 year"}, \code{"4 sec"}, \code{"3 month"}, \code{"2 week"}.}
 This can be a strftime format for each x axis tic date label.
 Examples: \code{"\%Y-\%m"}, \code{"\%Y/\%b/\%d"}, \code{"\%H-\%M-\%S"}.}
 
-\item{y_limits}{A numeric 2 element vector that sets the minimum and  maximum for the y axis.
-Use NA to refer to the existing minimum and maximum.}
+\item{y_limits}{A numeric 2 element vector that sets the minimum and maximum for the y axis.
+The default is \code{c(1,10)}.}
 
 \item{y_major_breaks}{A numeric vector or function that defines the exact major tic locations for the moving average y axis'.}
 
@@ -77,9 +83,9 @@ Use NA to refer to the existing minimum and maximum.}
 
 \item{show_observe}{A logical that controls the appearance of the observed time series.}
 
-\item{col_width}{An integer that sets the width of each plot column in centimeters.}
+\item{col_width}{An numeric that sets the width of each plot in centimeters.}
 
-\item{row_height}{An integer that sets the height of each plot column in centimeters.}
+\item{row_height}{A numeric that sets the height of each plot in centimeters.}
 
 \item{display_plot}{A logical that if TRUE displays the plot.}
 

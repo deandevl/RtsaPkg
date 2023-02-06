@@ -20,12 +20,13 @@
 #'  be numeric or Date/POSIXct and is required.
 #' @param value_col Names the numeric column from \code{df} for time series values and is required.
 #' @param max_lag An integer that sets the maximum lag for the autocorrelation and partial autocorrelation plots.
-#' @param line_size A numeric that sets the line widths in the autocorrelation and partial autocorrelation plots.
-#' @param title A string that defines an overall title to the pair of plots.
-#' @param x_title A string that sets the observed plot x axis title.
-#' @param y_title A string that sets the observed plot y axis title.
+#' @param line_width A numeric that sets the line widths in all plots.
+#' @param line_color A string that sets the line color in all plots.
+#' @param title A string that defines an overall title to the plots.
+#' @param caption A string that sets the observed plot caption.
 #' @param confid_level A numeric that defines a confidence level which will be drawn over the autocorrelation plots. Typical value
 #'  is 1.96. If the value is \code{NULL}, confidence lines will not be drawn.
+#' @param CL_color A string that sets the confidence line colors.
 #' @param obs_x_limits A Date/POSIXct 2 element vector that sets the minimum and maximum for the observed time series along the x axis.
 #'  Use NA to refer to the existing minimum and maximum.
 #' @param obs_x_major_breaks A Date/POSIXct vector or function that defines the exact major tic locations for the observed time series along the x axis.
@@ -55,8 +56,8 @@
 #' @param show_major_grids A logical that controls the appearance of major grids.
 #' @param show_minor_grids A logical that controls the appearance of minor grids.
 #' @param bold_y A numeric that plots a bold horizontal line at this y value.
-#' @param col_width A numeric that sets the width of each plot column in centimeters.
-#' @param row_height A numeric that sets the height of each plot column in centimeters.
+#' @param col_width A numeric that sets the width of each plot in centimeters.
+#' @param row_height A numeric that sets the height of each plot in centimeters.
 #' @param display_plot A logical that if TRUE displays the plot.
 #' @param png_file_path A character string with the directory and file name to produce
 #'  a png image of the plot.
@@ -87,12 +88,13 @@ graph_acf <- function(
   df,
   time_col = NULL,
   value_col = NULL,
-  max_lag = 10,
-  line_size =0.8,
+  max_lag = 30,
+  line_width = 1.0,
+  line_color = "black",
   title = NULL,
   confid_level = NULL,
-  x_title = "DateTime",
-  y_title = "Value",
+  CL_color = "blue",
+  caption = "Value",
   obs_x_limits = NULL,
   obs_x_major_breaks = waiver(),
   obs_x_major_date_breaks = waiver(),
@@ -101,21 +103,21 @@ graph_acf <- function(
   obs_y_major_breaks = waiver(),
   ac_x_limits = NULL,
   ac_x_major_breaks = seq(1,max_lag,1),
-  ac_y_limits = c(-1,1),
-  ac_y_major_breaks = seq(-1,1,0.2),
+  ac_y_limits = c(-1, 1),
+  ac_y_major_breaks = seq(-1,1,0.5),
   pac_x_limits = NULL,
   pac_x_major_breaks = seq(1,max_lag,1),
   pac_y_limits = c(-1,1),
-  pac_y_major_breaks = seq(-1,1,0.2),
+  pac_y_major_breaks = seq(-1,1,0.5),
   layout = "ver",
   show_obs = TRUE,
   show_ac = TRUE,
   show_pc = TRUE,
   show_major_grids = TRUE,
-  show_minor_grids = TRUE,
+  show_minor_grids = FALSE,
   bold_y = NULL,
-  col_width = 12,
-  row_height = 6,
+  col_width = 18,
+  row_height = 4,
   display_plot = TRUE,
   png_file_path = NULL){
 
@@ -129,18 +131,19 @@ graph_acf <- function(
       lag = seq(1,max_lag, 1)
     )
     plots <- list()
-
+    row_heights = c()
     if(show_obs){
+      row_heights <- row_height + 0.5
+
       # create a line plot of the observed series
       obsv_plot <- RplotterPkg::create_stick_plot(
         df = dt,
         aes_x = time_col,
         aes_y = value_col,
-        line_size = line_size,
+        line_width = line_width,
+        line_color = line_color,
         rot_y_tic_label = TRUE,
-        subtitle = "Observations",
-        x_title = x_title,
-        y_title = y_title,
+        caption = caption,
         x_limits = obs_x_limits,
         x_major_breaks = obs_x_major_breaks,
         x_major_date_breaks = obs_x_major_date_breaks,
@@ -154,18 +157,23 @@ graph_acf <- function(
     }
 
     if(show_ac){
+      row_heights <- c(row_heights, row_height)
+
       # get autocorrelations
       acf_vals <- stats::acf(dt[[value_col]], plot = F, lag.max = max_lag)$acf
       acf_df[, acf := acf_vals[2:(max_lag + 1)]]
 
       # create stick plot for acf
+      hide_x_tics <- FALSE
+      if(show_pc){
+        hide_x_tics <- TRUE
+      }
       acf_plot <- RplotterPkg::create_stick_plot(
         df = acf_df,
         aes_x = "lag",
         aes_y = "acf",
-        subtitle = "ACF",
-        x_title = "Lag",
-        y_title = "ACF",
+        caption = "ACF",
+        hide_x_tics = hide_x_tics,
         rot_y_tic_label = TRUE,
         x_limits = ac_x_limits,
         x_major_breaks = ac_x_major_breaks,
@@ -173,17 +181,21 @@ graph_acf <- function(
         y_major_breaks = ac_y_major_breaks,
         show_major_grids = show_major_grids,
         show_minor_grids = show_minor_grids,
+        line_width = line_width,
+        line_color = line_color,
         bold_y = bold_y
       )
       if(!is.null(confid_level)){
         acf_plot <-  acf_plot +
-          geom_line(aes(x = !!rlang::sym("lag"), y = -confid_level/sqrt(nrow(dt))), linetype = "dashed", color = "red", size = .8) +
-          geom_line(aes(x = !!rlang::sym("lag"), y = confid_level/sqrt(nrow(dt))), linetype = "dashed", color = "red", size = .8)
+          geom_line(aes(x = !!rlang::sym("lag"), y = -confid_level/sqrt(nrow(dt))), linetype = "dashed", color = CL_color, linewidth = .8) +
+          geom_line(aes(x = !!rlang::sym("lag"), y = confid_level/sqrt(nrow(dt))), linetype = "dashed", color = CL_color, linewidth = .8)
       }
       plots$acf <- acf_plot
     }
 
     if(show_pc){
+      row_heights <- c(row_heights, row_height)
+
       # create the partial autocorrelation data.frame
       pacf_vals <- stats::pacf(dt[[value_col]], plot = F, lag.max = max_lag)$acf
       acf_df[, pacf := as.numeric(pacf_vals)]
@@ -193,9 +205,7 @@ graph_acf <- function(
         df = acf_df,
         aes_x = "lag",
         aes_y = "pacf",
-        subtitle = "PACF",
-        x_title = "Lag",
-        y_title = "PACF",
+        caption = "PACF",
         rot_y_tic_label = TRUE,
         x_limits = pac_x_limits,
         x_major_breaks = pac_x_major_breaks,
@@ -203,13 +213,15 @@ graph_acf <- function(
         y_major_breaks = pac_y_major_breaks,
         show_major_grids = show_major_grids,
         show_minor_grids = show_minor_grids,
+        line_width = line_width,
+        line_color = line_color,
         bold_y = bold_y
       )
 
       if(!is.null(confid_level)){
         pacf_plot <-  pacf_plot +
-          geom_line(aes(x = !!rlang::sym("lag"), y = -confid_level/sqrt(nrow(dt))), linetype = "dashed", color = "red", size = .8) +
-          geom_line(aes(x = !!rlang::sym("lag"), y = confid_level/sqrt(nrow(dt))), linetype = "dashed", color = "red", size = .8)
+          geom_line(aes(x = !!rlang::sym("lag"), y = -confid_level/sqrt(nrow(dt))), linetype = "dashed", color = CL_color, size = .8) +
+          geom_line(aes(x = !!rlang::sym("lag"), y = confid_level/sqrt(nrow(dt))), linetype = "dashed", color = CL_color, size = .8)
       }
       plots$pacf <- pacf_plot
     }
@@ -242,10 +254,12 @@ graph_acf <- function(
       cols = cols
     )
 
+    row_heights[length(row_heights)] <- row_heights[length(row_heights)] + 0.5
+
     multi_plot <- RplotterPkg::multi_panel_grid(
       layout = multi_layout,
       col_widths = rep(col_width, n_columns),
-      row_heights = rep(row_height, n_rows),
+      row_heights = row_heights,
       title = title,
       display_plot = FALSE
     )

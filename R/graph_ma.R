@@ -23,7 +23,9 @@
 #'  "wma" weighted, "exp" exponential, "mod" modified, and "spe" Spencer weighted 15 point average.
 #' @param overlap A logical which if \code{TRUE} overlaps both the observed and the moving average series'. If \code{FALSE} the
 #'  plots are in separate panels.
-#' @param title A string that sets the plots overall title.
+#' @param title A string that sets the overall title to the plots.
+#' @param ma_caption A string that sets the caption for the ma plot.
+#' @param ob_caption A string that sets the caption for the observed plot.
 #' @param x_title A string that defines the x axis title.
 #' @param y_title A string that defines the y axis title.
 #' @param x_limits A Date/POSIXct 2 element vector that sets the minimum and maximum for the x axis.
@@ -34,15 +36,15 @@
 #' @param x_date_labels For Date/POSIXct, a string containing the format codes for the x axis date format.
 #'  This can be a strftime format for each x axis tic date label.
 #'  Examples: \code{"\%Y-\%m"}, \code{"\%Y/\%b/\%d"}, \code{"\%H-\%M-\%S"}.
-#' @param y_limits A numeric 2 element vector that sets the minimum and  maximum for the y axis.
-#'  Use NA to refer to the existing minimum and maximum.
+#' @param y_limits A numeric 2 element vector that sets the minimum and maximum for the y axis.
+#'  The default is \code{c(1,10)}.
 #' @param y_major_breaks A numeric vector or function that defines the exact major tic locations for the moving average y axis'.
 #' @param show_pts A logical which if FALSE will plot only the lines.
 #' @param show_major_grids A logical that controls the appearance of major grids.
 #' @param show_minor_grids A logical that controls the appearance of minor grids.
 #' @param show_observe A logical that controls the appearance of the observed time series.
-#' @param col_width An integer that sets the width of each plot column in centimeters.
-#' @param row_height An integer that sets the height of each plot column in centimeters.
+#' @param col_width An numeric that sets the width of each plot in centimeters.
+#' @param row_height A numeric that sets the height of each plot in centimeters.
 #' @param display_plot A logical that if TRUE displays the plot.
 #' @param png_file_path A character string with the directory and file name to produce
 #'  a png image of the plot.
@@ -79,6 +81,8 @@ graph_ma <- function(
   ma_type = "sma",
   overlap = TRUE,
   title = NULL,
+  ma_caption = NULL,
+  ob_caption = NULL,
   x_title = NULL,
   y_title = NULL,
   x_limits = NULL,
@@ -91,8 +95,8 @@ graph_ma <- function(
   show_minor_grids = TRUE,
   show_pts = TRUE,
   show_observe = TRUE,
-  col_width = 30,
-  row_height = 8,
+  col_width = 18,
+  row_height = 5,
   display_plot = TRUE,
   png_file_path = NULL
 ){
@@ -110,6 +114,11 @@ graph_ma <- function(
 
   dates <- df[[time_col]]
   values <- df[[value_col]]
+  row_heights = NULL
+
+  if(is.null(y_limits)){
+    y_limits <- c(min(values), max(values))
+  }
 
   get_simple_ma <- function(values, window_n){
     values_n <- length(values)
@@ -176,11 +185,12 @@ graph_ma <- function(
     value = ma
   )
   if(!show_observe){
+    row_heights <- row_height
     a_plot <- RplotterPkg::create_scatter_plot(
       df = ma_dt,
       aes_x = "datetime",
       aes_y = "value",
-      subtitle = title,
+      caption = ma_caption,
       x_title = x_title,
       y_title = y_title,
       x_limits = x_limits,
@@ -203,7 +213,7 @@ graph_ma <- function(
         plot = a_plot,
         device = "png",
         width = col_width * n_columns * 1700,
-        height = row_height * n_rows * 1700,
+        height = row_height[1] * n_rows * 1700,
         units = "px",
         scale = .05,
         dpi = 72
@@ -220,14 +230,15 @@ graph_ma <- function(
       ))
     }
   }else if(!overlap){
+    row_heights <- c(row_height, row_height + .5)
     #create a line plot of the observed series
     obsv_plot <- RplotterPkg::create_scatter_plot(
       df = df,
       aes_x = time_col,
       aes_y = value_col,
       rot_y_tic_label = TRUE,
-      subtitle = "Observations",
-      x_title = x_title,
+      caption = ob_caption,
+      hide_x_tics = TRUE,
       y_title = y_title,
       x_limits = x_limits,
       x_major_breaks = x_major_breaks,
@@ -247,7 +258,7 @@ graph_ma <- function(
       aes_x = "datetime",
       aes_y = "value",
       rot_y_tic_label = TRUE,
-      subtitle = ma_name,
+      caption = ma_caption,
       x_title = x_title,
       y_title = y_title,
       x_limits = x_limits,
@@ -292,7 +303,7 @@ graph_ma <- function(
     multi_plot <- RplotterPkg::multi_panel_grid(
       layout = multi_layout,
       col_widths = rep(col_width, n_columns),
-      row_heights = rep(row_height, n_rows),
+      row_heights = row_heights,
       title = title,
       display_plot = FALSE
     )

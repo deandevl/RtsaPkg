@@ -1,4 +1,5 @@
 library(data.table)
+library(ggplot2)
 library(rlang)
 library(grid)
 library(gtable)
@@ -19,8 +20,10 @@ RtsaPkg::graph_ma(
   value_col = "values",
   ma_type = "sma",
   window_n = 3,
-  y_major_breaks = seq(1,10,1),
-  title = "Simple MA"
+  title = "Simple MA",
+  ma_caption = "Simple moving average with window order = 3",
+  ob_caption = "Observed series values = 1 to 10",
+  overlap = FALSE
 )
 
 # simple moving average using default "sma" ma_type with window_n = 15

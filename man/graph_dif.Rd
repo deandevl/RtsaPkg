@@ -22,8 +22,8 @@ graph_dif(
   show_obs = TRUE,
   show_major_grids = TRUE,
   show_minor_grids = TRUE,
-  col_width = 30,
-  row_height = 8,
+  col_width = 18,
+  row_height = 5,
   display_plot = TRUE,
   png_file_path = NULL
 )

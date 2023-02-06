@@ -8,12 +8,13 @@ graph_acf(
   df,
   time_col = NULL,
   value_col = NULL,
-  max_lag = 10,
-  line_size = 0.8,
+  max_lag = 30,
+  line_width = 1,
+  line_color = "black",
   title = NULL,
   confid_level = NULL,
-  x_title = "DateTime",
-  y_title = "Value",
+  CL_color = "blue",
+  caption = "Value",
   obs_x_limits = NULL,
   obs_x_major_breaks = waiver(),
   obs_x_major_date_breaks = waiver(),
@@ -23,20 +24,20 @@ graph_acf(
   ac_x_limits = NULL,
   ac_x_major_breaks = seq(1, max_lag, 1),
   ac_y_limits = c(-1, 1),
-  ac_y_major_breaks = seq(-1, 1, 0.2),
+  ac_y_major_breaks = seq(-1, 1, 0.5),
   pac_x_limits = NULL,
   pac_x_major_breaks = seq(1, max_lag, 1),
   pac_y_limits = c(-1, 1),
-  pac_y_major_breaks = seq(-1, 1, 0.2),
+  pac_y_major_breaks = seq(-1, 1, 0.5),
   layout = "ver",
   show_obs = TRUE,
   show_ac = TRUE,
   show_pc = TRUE,
   show_major_grids = TRUE,
-  show_minor_grids = TRUE,
+  show_minor_grids = FALSE,
   bold_y = NULL,
-  col_width = 12,
-  row_height = 6,
+  col_width = 18,
+  row_height = 4,
   display_plot = TRUE,
   png_file_path = NULL
 )
@@ -51,16 +52,18 @@ be numeric or Date/POSIXct and is required.}
 
 \item{max_lag}{An integer that sets the maximum lag for the autocorrelation and partial autocorrelation plots.}
 
-\item{line_size}{A numeric that sets the line widths in the autocorrelation and partial autocorrelation plots.}
+\item{line_width}{A numeric that sets the line widths in all plots.}
 
-\item{title}{A string that defines an overall title to the pair of plots.}
+\item{line_color}{A string that sets the line color in all plots.}
+
+\item{title}{A string that defines an overall title to the plots.}
 
 \item{confid_level}{A numeric that defines a confidence level which will be drawn over the autocorrelation plots. Typical value
 is 1.96. If the value is \code{NULL}, confidence lines will not be drawn.}
 
-\item{x_title}{A string that sets the observed plot x axis title.}
+\item{CL_color}{A string that sets the confidence line colors.}
 
-\item{y_title}{A string that sets the observed plot y axis title.}
+\item{caption}{A string that sets the observed plot caption.}
 
 \item{obs_x_limits}{A Date/POSIXct 2 element vector that sets the minimum and maximum for the observed time series along the x axis.
 Use NA to refer to the existing minimum and maximum.}
@@ -112,9 +115,9 @@ in mind that the limits for an autocorrelation are +-1.}
 
 \item{bold_y}{A numeric that plots a bold horizontal line at this y value.}
 
-\item{col_width}{A numeric that sets the width of each plot column in centimeters.}
+\item{col_width}{A numeric that sets the width of each plot in centimeters.}
 
-\item{row_height}{A numeric that sets the height of each plot column in centimeters.}
+\item{row_height}{A numeric that sets the height of each plot in centimeters.}
 
 \item{display_plot}{A logical that if TRUE displays the plot.}
 

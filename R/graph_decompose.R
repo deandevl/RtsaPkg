@@ -63,13 +63,13 @@ graph_decompose <- function(
   series_ts = NULL,
   type_comp = "additive",
   title = NULL,
-  x_title = "DateTime",
+  x_title = NULL,
   x_limits = NULL,
   x_major_breaks = waiver(),
   x_major_date_breaks = waiver(),
   x_date_labels = waiver(),
-  col_width = 20.0,
-  row_height = 5.0,
+  col_width = 18.0,
+  row_height = 3.5,
   display_plot = TRUE){
     series_decomp <- stats::decompose(series_ts, type = type_comp)
 
@@ -101,8 +101,10 @@ graph_decompose <- function(
       x_major_date_breaks,
       x_date_labels)
       {
+        hide_x_tics <- TRUE
         if(id == 4){
-          x_title  <-  x_title
+          x_title <- x_title
+          hide_x_tics <- FALSE
         }else{
           x_title <- NULL
         }
@@ -113,12 +115,13 @@ graph_decompose <- function(
           df = plot_dt,
           aes_x = "DateTime",
           aes_y = "Value",
-          subtitle = measures[[id]],
+          caption = measures[[id]],
           x_title = x_title,
           x_limits = x_limits,
           x_major_breaks = x_major_breaks,
           x_major_date_breaks = x_major_date_breaks,
           x_date_labels = x_date_labels,
+          hide_x_tics = hide_x_tics,
           show_pts = F,
           show_major_grids = T,
           show_minor_grids = F,
@@ -151,14 +154,12 @@ graph_decompose <- function(
     multi_plot <- RplotterPkg::multi_panel_grid(
       layout = layout,
       col_widths = col_width,
-      row_heights = c(row_height, row_height, row_height, row_height),
-      title = title
+      row_heights = c(row_height, row_height, row_height, row_height + 1.4),
+      title = title,
+      display_plot = display_plot
     )
 
-    if(display_plot){
-      grid::grid.newpage()
-      grid::grid.draw(multi_plot)
-    }else{
+    if(!display_plot){
       return(list(
         decompose_dt = decompose_dt,
         plots = multi_plot

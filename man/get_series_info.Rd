@@ -5,16 +5,20 @@
 \title{Function gets both time and starting data information on a \code{ts}, \code{zoo}, or
 \code{xts} time series object}
 \usage{
-get_series_info(series = NULL, n_obser = 5)
+get_series_info(series = NULL, n_obser = NULL)
 }
 \arguments{
 \item{series}{Either a  \code{ts}, \code{zoo}, or \code{xts} time series object}
 
-\item{n_obser}{An integer that sets the number of observations to display}
+\item{n_obser}{An integer that sets the number of observations to display. If NULL
+then no observations are included in the data.frame.}
+}
+\value{
+A named list with the series statistics(named "stats") and sample values(named "data").
 }
 \description{
-The function prints a short synopsis of a time series object
-and its starting observations.
+The function returns a short synopsis data.frame of a time series object
+and optionally its starting observations.
 }
 \author{
 Rick Dean

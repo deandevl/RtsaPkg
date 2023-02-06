@@ -8,13 +8,13 @@ graph_decompose(
   series_ts = NULL,
   type_comp = "additive",
   title = NULL,
-  x_title = "DateTime",
+  x_title = NULL,
   x_limits = NULL,
   x_major_breaks = waiver(),
   x_major_date_breaks = waiver(),
   x_date_labels = waiver(),
-  col_width = 20,
-  row_height = 5,
+  col_width = 18,
+  row_height = 3.5,
   display_plot = TRUE
 )
 }
