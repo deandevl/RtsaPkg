@@ -173,7 +173,6 @@ graph_ma <- function(
     dates <- dates[1:values_n]
     ma <- numeric(values_n)
     weights <- c(-3, -6, -5, 3, 21, 46, 67, 74, 67, 46, 21, 3, -5, -6, -3)/320
-    ma <- numeric(values_n)
     for(k in 1:values_n){
       vals <- values[k:(k + 14)]
       ma[k] <- sum(vals * weights, na.rm = TRUE)
